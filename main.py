@@ -1,29 +1,39 @@
 import turtle
 import pandas
-#VARIABLES
+# VARIABLES
 screen = turtle.Screen()
 background = "blank_states_img.gif"
 data = pandas.read_csv("50_states.csv")
 guessed_states = []
-#SCREEN PROPERTIES
+all_states = data.state.to_list()
+# SCREEN PROPERTIES
 screen.title("U.S. States Game")
 screen.addshape(background)
-screen.setup(width = 740, height = 500)
+screen.setup(width=740, height=500)
 turtle.shape(background)
 screen.bgcolor("black")
 
-#FUNCTIONALITY
-while len(guessed_states) < 50:
-    guess = screen.textinput(title = f"{len(guessed_states)} / 50 States Correct", prompt = "What is one of the state's name?").title()
+# FUNCTIONALITY
+while len(guessed_states) <= 50:
+    guess = screen.textinput(title=f"{len(guessed_states)} / 50 States Correct",
+                             prompt="What is one of the state's name?").title()
     found = data[data.state == guess]
-
+    if guess == "Exit":
+        with open("learn.txt", mode="w") as file:
+            for item in all_states:
+                if item not in guessed_states:
+                    file.write(f"{item}\n")
+            break
     if not found.empty:
         guessed_states.append(guess)
         pointer = turtle.Turtle()
         pointer.hideturtle()
         pointer.penup()
-        pointer.goto(int(found.x),int(found.y))
+        pointer.goto(int(found.x), int(found.y))
         pointer.write(guess)
 
 
-# screen.exitonclick()
+
+
+
+        
