@@ -14,7 +14,7 @@ screen.bgcolor("black")
 
 #FUNCTIONALITY
 while len(guessed_states) < 50:
-    guess = screen.textinput(title = f"{len(guessed_states)} / 50 States Correct", prompt = "What is one of the state's name?").capitalize()
+    guess = screen.textinput(title = f"{len(guessed_states)} / 50 States Correct", prompt = "What is one of the state's name?").title()
     found = data[data.state == guess]
 
     if not found.empty:
