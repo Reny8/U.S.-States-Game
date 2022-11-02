@@ -20,9 +20,8 @@ while len(guessed_states) <= 50:
     found = data[data.state == guess]
     if guess == "Exit":
         with open("learn.txt", mode="w") as file:
-            for item in all_states:
-                if item not in guessed_states:
-                    file.write(f"{item}\n")
+            missing_states = [file.write(
+                f"{state}\n") for state in all_states if state not in guessed_states]
             break
     if not found.empty:
         guessed_states.append(guess)
@@ -31,9 +30,3 @@ while len(guessed_states) <= 50:
         pointer.penup()
         pointer.goto(int(found.x), int(found.y))
         pointer.write(guess)
-
-
-
-
-
-        
